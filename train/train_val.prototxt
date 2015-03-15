@@ -350,6 +350,19 @@ layer {
   }
 }
 layer {
+  name: "reshape_coarse_global"
+  type: "Reshape"
+  bottom: "fc8"
+  top: "reshape_coarse_global"
+  reshape_param {
+    new_channel: 40 
+    new_height: 20
+    new_width: 20
+    new_patch_width: 20
+    new_patch_height: 20
+  }
+}
+layer {
   name: "loss"
   type: "EuclideanLoss"
   bottom: "fc8"
