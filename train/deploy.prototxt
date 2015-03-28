@@ -1,25 +1,9 @@
 name: "3DCaffeNet"
-layer {
-  name: "data"
-  type: "ImageDataMultiLabel"
-  top: "data"
-  top: "label"
-  include {
-    phase: TRAIN
-  }
-  transform_param {
-    mirror: true
-    crop_size: 227
-    mean_file: "../../../../Courses/16-824-LearningBasedVision/caffe/data/ilsvrc12/imagenet_mean.binaryproto"
-  }
-  image_data_param {
-    source: "/home/rgirdhar/Work/Projects/002_GeoObjDet/3d_finetune/label_train_test/normal_labels_train.txt"
-    root_folder: "/nfs/hn46/dfouhey/deepProcessed/data/"
-    batch_size: 200
-    new_height: 256
-    new_width: 256
-  }
-}
+input: "data"
+input_dim: 10
+input_dim: 3
+input_dim: 227
+input_dim: 227
 layer {
   name: "conv1"
   type: "Convolution"
@@ -348,24 +332,4 @@ layer {
       value: 0
     }
   }
-}
-layer {
-  name: "reshape_coarse_global"
-  type: "Reshape"
-  bottom: "fc8"
-  top: "reshape_coarse_global"
-  reshape_param {
-    new_channel: 20 
-    new_height: 20
-    new_width: 20
-    new_patch_width: 20
-    new_patch_height: 20
-  }
-}
-layer {
-  name: "loss"
-  type: "MultiSoftmaxWithLoss"
-  bottom: "reshape_coarse_global"
-  bottom: "label"
-  top: "loss"
 }
